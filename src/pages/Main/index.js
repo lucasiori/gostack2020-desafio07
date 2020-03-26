@@ -1,10 +1,32 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { Component } from 'react';
+import api from '../../services/api';
 
-// import { Container } from './styles';
+import ProductCard from '../../components/ProductCard';
 
-export default function Main() {
-  return (
-    <View />
-  );
+import { Container, ItemsList } from './styles';
+
+export default class Main extends Component {
+  state = {
+    products: [],
+  };
+
+  async componentDidMount() {
+    const response = await api.get('/products');
+
+    this.setState({ products: response.data });
+  }
+
+  render() {
+    const { products } = this.state;
+
+    return (
+      <Container>
+        <ItemsList
+          data={products}
+          keyExtractor={(product) => product.id.toString()}
+          renderItem={({ item }) => <ProductCard product={item} />}
+        />
+      </Container>
+    );
+  }
 }

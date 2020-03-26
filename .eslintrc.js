@@ -6,12 +6,12 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
     'prettier',
-    'prettier/react'
+    'prettier/react',
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-    __DEV__: 'readonly'
+    __DEV__: 'readonly',
   },
   parser: 'babel-eslint',
   parserOptions: {
@@ -23,7 +23,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    'prettier'
+    'prettier',
   ],
   rules: {
     'prettier/prettier': 'error',
@@ -34,6 +34,6 @@ module.exports = {
       }
     ],
     'import/prefer-default-export': 'off',
-    'no-console': [ 'error', { allow: ['tron'] } ]
+    'react/state-in-constructor': 'never'
   },
 };
