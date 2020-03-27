@@ -56,3 +56,9 @@ export const SubmitButtonText = styled.Text`
   text-align: center;
   text-transform: uppercase;
 `;
+
+export const EmptyText = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 18px;
+`

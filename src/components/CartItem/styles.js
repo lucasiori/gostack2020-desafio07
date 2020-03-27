@@ -32,6 +32,7 @@ export const ProductInfo = styled.View`
 `;
 
 export const Description = styled.Text`
+  width: 90%;
   color: #333;
   font-size: 14px;
 `;

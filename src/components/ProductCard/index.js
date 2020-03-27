@@ -1,8 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { formatPrice } from '../../utils/format';
-
 import {
   Container,
   ProductImage,
@@ -14,18 +12,16 @@ import {
   AddButtonText,
 } from './styles';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, add }) {
   return (
     <Container>
       <ProductImage source={{ uri: product.image }} alt={product.title} />
       <Description>{product.title}</Description>
-      <Price>
-      {formatPrice(product.price)}
-      </Price>
-      <AddButton>
+      <Price>{product.formattedPrice}</Price>
+      <AddButton onPress={add}>
         <CartAmount>
           <Icon name="add-shopping-cart" color="#FFF" size={20} />
-          <CartAmountText>5</CartAmountText>
+          <CartAmountText>{product.amount || 0}</CartAmountText>
         </CartAmount>
 
         <AddButtonText>ADICIONAR</AddButtonText>

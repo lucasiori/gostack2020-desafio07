@@ -1,12 +1,13 @@
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container, Badge } from './styles';
 
 import rocketshoes from '../../assets/images/rocketshoes.png';
 
-export default function Header({ navigation }) {
+function Header({ navigation, cartSize }) {
   return (
     <Container>
       <TouchableOpacity onPress={() => navigation.navigate('Main')}>
@@ -15,8 +16,12 @@ export default function Header({ navigation }) {
 
       <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
         <Icon name="shopping-basket" color="#FFF" size={26} />
-        <Badge>3</Badge>
+        <Badge>{cartSize}</Badge>
       </TouchableOpacity>
     </Container>
   );
 }
+
+export default connect(state => ({
+  cartSize: state.cart.length
+}))(Header);

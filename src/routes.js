@@ -6,24 +6,24 @@ import Header from './components/Header';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
 
-const Stack = createStackNavigator();
+const { Navigator, Screen} = createStackNavigator();
 
 export default function Routes() {
   return (
-    <Stack.Navigator screenOptions={{
+    <Navigator screenOptions={{
       cardStyle: { backgroundColor: '#191920' },
       header: navigation => (<Header {...navigation} />)
     }}>
-      <Stack.Screen
+      <Screen
         name="Main"
         component={Main}
         options={{ title: 'Home Page' }}
       />
-      <Stack.Screen
+      <Screen
         name="Cart"
         component={Cart}
         options={{ title: 'Carrinho de Compras' }}
       />
-    </Stack.Navigator>
+    </Navigator>
   );
 }
