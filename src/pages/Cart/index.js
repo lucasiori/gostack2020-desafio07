@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { formatPrice } from '../../utils/format';
@@ -19,18 +18,28 @@ import {
   EmptyText
 } from './styles';
 
-function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
+export default function Cart() {
+  const cart = useSelector(state => state.cart.map((product) => ({
+    ...product,
+    subTotal: formatPrice(product.amount * product.price)
+  })));
+
+  const total = useSelector(state => formatPrice(state.cart.reduce((totalSum, product) => {
+    return totalSum + (product.price * product.amount);
+  }, 0)))
+
+  const dispatch = useDispatch();
 
   handleRemoveProduct = id => {
-    removeFromCart(id);
+    dispatch(CartActions.removeFromCart(id));
   }
 
   handleIncrement = product => {
-    updateAmountRequest(product.id, product.amount + 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
   }
 
   handleDecrement = product => {
-    updateAmountRequest(product.id, product.amount - 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
   }
 
   if (cart.length === 0) {
@@ -50,9 +59,9 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
         renderItem={({ item }) =>
           <CartItem
             product={item}
-            remove={() => this.handleRemoveProduct(item.id)}
-            increment={() => this.handleIncrement(item)}
-            decrement={() => this.handleDecrement(item)}
+            remove={() => handleRemoveProduct(item.id)}
+            increment={() => handleIncrement(item)}
+            decrement={() => handleDecrement(item)}
           />
         }
       />
@@ -68,18 +77,3 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
     </Container>
   );
 }
-
-const mapStateToProps = state => ({
-  cart: state.cart.map((product) => ({
-    ...product,
-    subTotal: formatPrice(product.amount * product.price)
-  })),
-  total: formatPrice(state.cart.reduce((total, product) => {
-    return total + (product.price * product.amount);
-  }, 0))
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 
@@ -10,59 +9,47 @@ import ProductCard from '../../components/ProductCard';
 
 import { Container, ItemsList } from './styles';
 
-class Main extends Component {
-  state = {
-    products: [],
-  };
+export default function Main() {
+  const [products, setProducts] = useState([]);
 
-  async componentDidMount() {
-    console.tron.log(this.props);
+  const amount = useSelector(state => state.cart.reduce((amountSum, product) => {
+    amountSum[product.id] = product.amount;
 
-    const response = await api.get('/products');
+    return amountSum;
+  }, {}));
 
-    const data = response.data.map(product => ({
-      ...product,
-      formattedPrice: formatPrice(product.price)
-    }));
+  const dispatch = useDispatch();
 
-    this.setState({ products: data });
-  }
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('/products');
+
+      const data = response.data.map(product => ({
+        ...product,
+        formattedPrice: formatPrice(product.price)
+      }));
+
+      setProducts(data);
+    }
+
+    loadProducts();
+  }, []);
 
   handleAddProduct = id => {
-    const { addToCartRequest } = this.props;
-
-    addToCartRequest(id);
+    dispatch(CartActions.addToCartRequest(id));
   }
 
-  render() {
-    const { products } = this.state;
-    const { amount } = this.props;
-
-    return (
-      <Container>
-        <ItemsList
-          data={products}
-          keyExtractor={(product) => product.id.toString()}
-          renderItem={({ item }) =>
-            <ProductCard
-              product={{ ...item, amount: amount[item.id] }}
-              add={() => this.handleAddProduct(item.id)}
-            />}
-        />
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <ItemsList
+        data={products}
+        keyExtractor={(product) => product.id.toString()}
+        renderItem={({ item }) =>
+          <ProductCard
+            product={{ ...item, amount: amount[item.id] }}
+            add={() => handleAddProduct(item.id)}
+        />}
+      />
+    </Container>
+  );
 }
-
-const mapStateToProps = state => ({
-  amount: state.cart.reduce((amount, product) => {
-    amount[product.id] = product.amount;
-
-    return amount;
-  }, {})
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,13 +1,15 @@
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container, Badge } from './styles';
 
 import rocketshoes from '../../assets/images/rocketshoes.png';
 
-function Header({ navigation, cartSize }) {
+export default function Header({ navigation }) {
+  const cartSize = useSelector(state => state.cart.length);
+
   return (
     <Container>
       <TouchableOpacity onPress={() => navigation.navigate('Main')}>
@@ -21,7 +23,3 @@ function Header({ navigation, cartSize }) {
     </Container>
   );
 }
-
-export default connect(state => ({
-  cartSize: state.cart.length
-}))(Header);
