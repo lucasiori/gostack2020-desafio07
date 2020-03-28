@@ -1,5 +1,5 @@
 <h1 align="center">
-  <image src="https://github.com/lucasiori/gostack2020-desafio07/blob/master/.github/rocketshoes.png" alt="Rocketshoes" width="300" />
+  <image src="https://github.com/lucasiori/gostack2020-desafio07/blob/master/.github/rocketshoes-react-native.png" alt="Rocketshoes" width="500" />
 </h1>
 
 <h3 align="center">
@@ -23,8 +23,8 @@
 <br />
 
 <h2 id="sobre-aplicacao">ℹ Sobre a aplicação</h2>
-<p>Durante o módulo 07 do bootcamp, desenvolvemos uma aplicação web chamada "Rocketshoes". O projeto simula a ação, adicionar/alterar/excluir 
-produtos do carrinho, de um e-commerce.</p>
+<p>Durante o módulo 07 do bootcamp, desenvolvemos uma aplicação web chamada "Rocketshoes". O projeto simula a ação, adicionar/alterar/excluir produtos do carrinho, de um e-commerce.</p>
+<p>Você pode consultar a aplicação <a href="https://github.com/lucasiori/gostack2020-modulo07">clicando aqui</a>.</p>
 <p>
   <h3>Desafio 07</h3>
   <p>O desafio 07 consiste em recriar a aplicação web em um ambiente mobile, implementando a Arquitetura Flux (Redux e Redux Saga).</p>
@@ -47,7 +47,7 @@ Ele será executado na porta 3333 do seu localhost, certifique-se que a porta es
 <h3>📱 Iniciando o mobile (Android)</h3>
 <p>Antes de começar, certifique-se de estar com o ambiente configurado. Você pode encontrar mais informações acessando
 o link: <a href="https://docs.rocketseat.dev/ambiente-react-native/usb/android">Emulando Aplicativos via USB</a></p>
-<p>Acesse a pasta do projeto e execute o comando <code>npm install</code> para instalar as dependências</p>
+<p>Acesse a pasta do projeto e execute o comando <code>npm install</code> para instalar as dependências.</p>
 <p>Com todas as dependências instaladas e com o dispositivo conectado, execute o comando <code>react-native run-android</code>.
 A inicialização pode demorar alguns minutos, aguarde.</p>
 
